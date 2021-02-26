@@ -4,7 +4,7 @@ const MongoClient = require('mongodb').MongoClient();
 const app = express();
 
 // ========================
-var uri ="mongodb+srv://dbDodo:congo1988@cluster0.cffaf.mongodb.net/myDB?retryWrites=true&w=majority";
+var uri ="mongodb+srv://dbDodo:*****@cluster0.cffaf.mongodb.net/myDB?retryWrites=true&w=majority";
 // ========================
 
 
