@@ -1,17 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const MongoClient = require('mongodb').MongoClient();
+const MongoClient = require('mongodb').MongoClient;
 const app = express();
 
 // ========================
-var uri ="mongodb+srv://dbDodo:congo1988@cluster0.cffaf.mongodb.net/myDB?retryWrites=true&w=majority";
+const uri ="mongodb+srv://dbDodo:congo1988@cluster0.cffaf.mongodb.net/myDB?retryWrites=true&w=majority";
 // ========================
 
 
 // Replace process.env.DB_URL with your actual connection string
-const connectionString = process.env.DB_URL
+//const connectionString = process.env.DB_URL
 
-MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client => {
+MongoClient.connect(uri, { useUnifiedTopology: true }).then(client => {
     console.log('Connected to Database')
     const db = client.db('myDB')
     const usersCollection = db.collection('users');
@@ -19,22 +19,25 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
     // ========================
     // Middlewares
     // ========================
-    app.set('view engine', 'ejs')
-    app.use(bodyParser.urlencoded({ extended: true }))
-    app.use(bodyParser.json())
-    app.use(express.static('public'))
+    app.set('view engine', 'ejs');
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.json());
+    app.use(express.static('public'));
 
     // ========================
     // Routes
     // ========================
     app.get('/api', (req, res) => {
-      db.collection('users').find().toArray().then(users => {
-          res.render('index.ejs', { users: users })
+      usersCollection.find().toArray().then(users => {
+         // res.render('index.ejs', { users: users })
+         res.send(users);
         }).catch(error => console.error(error))
     })
 
     app.post('/api/user', (req, res) => {
       usersCollection.insertOne(req.body).then(result => {
+          //console.log("dato inserito"); //test effettuato con postman
+          var risultato = result;  
           res.redirect('/')
         }).catch(error => console.error(error))
     })
@@ -69,8 +72,9 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
     // ========================
     // Listen
     // ========================
-    const port = 7500
+    const port = 7500;
     app.listen(port, function () {
       console.log('listening on ' + port)
     })
+
   }).catch(console.error)
