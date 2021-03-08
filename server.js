@@ -8,7 +8,7 @@ const app = express();
 //app.use(cors()); prova temp comunicazione F-E e B-E
 
 // ========================
-const uri ="**********++^^***";
+//const uri ="**********++^^***";
 // ========================
 
 // Replace process.env.DB_URL with your actual connection string
