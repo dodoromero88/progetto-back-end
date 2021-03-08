@@ -6,7 +6,6 @@ const MongoClient = require('mongodb').MongoClient;
 const app = express();
 
 //app.use(cors()); prova temp comunicazione F-E e B-E
-
 // ========================
 //const uri ="**********++^^***";
 // ========================
